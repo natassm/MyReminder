@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MyReminder</string>
+    <string name="hello">Hello</string>
+    <string name="peeps">Peeps!</string>
+    <string name="title">Add Title</string>
+    <string name="desc">Description</string>
+    <string name="due_date">Due Date</string>
+    <string name="choose_date">Choose Date</string>
+    <string name="create_new">Create New</string>
+    <string name="cancel">Cancel</string>
+    <string name="titleTV">What you wanna do?</string>
+    <string name="descTV">Add the description here!</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="new_notes">Create New Task!</string>
+    <string name="update_delete">Update or Delete</string>
+</resources>
