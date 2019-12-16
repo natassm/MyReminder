@@ -1,4 +1,4 @@
-package com.example.myreminder;
+package com.example.myreminder.screen;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,11 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myreminder.R;
+import com.example.myreminder.ToDo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
-import java.util.Random;
 
 public class NewToDoActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class NewToDoActivity extends AppCompatActivity {
     String sTitle, sDesc, sDueDate, sID;
     int year, month, day;
     DatabaseReference reference;
-    Integer doesNum = new Random().nextInt();
+//    Integer doesNum = new Random().nextInt();
 
     ToDo td  = new ToDo();
 
@@ -95,7 +96,6 @@ public class NewToDoActivity extends AppCompatActivity {
                 sDesc = descET.getText().toString();
                 sDueDate = dateView.getText().toString();
 
-
                 reference = FirebaseDatabase.getInstance().getReference().child("MyReminder");
 
                 getValue();
@@ -104,7 +104,7 @@ public class NewToDoActivity extends AppCompatActivity {
                     Toast.makeText(NewToDoActivity.this, "Please fill all the data",
                             Toast.LENGTH_LONG).show();
                 }else{
-                    reference.child("AddNewToDo" + doesNum).push().setValue(td);
+                    reference.child("AddNewToDo").push().setValue(td);
                     titleET.setText("");
                     descET.setText("");
                     Toast.makeText(NewToDoActivity.this, "Data saved", Toast.LENGTH_SHORT).show();
@@ -122,6 +122,5 @@ public class NewToDoActivity extends AppCompatActivity {
         td.setTitleMR(titleET.getText().toString());
         td.setDescMR(descET.getText().toString());
         td.setDueDateMR(dateView.getText().toString());
-        td.setIdMR(doesNum.toString());
     }
 }

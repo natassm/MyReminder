@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DashboardActivity"></activity>
-        <activity android:name=".NewToDoActivity"></activity>
-        <activity android:name=".UpdateDeleteToDoActivity"></activity>
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".screen.DashboardActivity"></activity>
+        <activity android:name=".screen.NewToDoActivity"></activity>
+        <activity android:name=".screen.UpdateDeleteToDoActivity"></activity>
+        <activity android:name=".screen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
