@@ -16,11 +16,15 @@ public class DatePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)
-                getActivity(), year, month, day);
+        super.onCreateDialog(savedInstanceState);
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day_of_month = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), STYLE_NORMAL,
+                (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day_of_month);
+        dialog.getDatePicker().setTag(getTag());
+        return dialog;
     }
 }

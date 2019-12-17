@@ -55,11 +55,12 @@ public class NewToDoActivity extends AppCompatActivity implements DatePickerDial
 
         toolbarTextView.setText(R.string.new_notes);
 
+        final DatePickerFragment newFrag = new DatePickerFragment();
+
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
+                newFrag.show(getSupportFragmentManager(), "btnChooseDate");
             }
         });
 
@@ -116,12 +117,9 @@ public class NewToDoActivity extends AppCompatActivity implements DatePickerDial
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, day);
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
-        dateView.setText(currentDate);
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        if (view.getTag().equals("btnChooseDate")) {
+            dateView.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+        }
     }
 }
