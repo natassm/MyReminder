@@ -1,6 +1,10 @@
 package com.example.myreminder.screen;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -16,23 +21,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.myreminder.DatePickerFragment;
+import com.example.myreminder.MyAlarm;
 import com.example.myreminder.R;
 import com.example.myreminder.ToDo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.util.Calendar;
 
 public class NewToDoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    Button btnChooseDate, btnCreateNew, btnCancel;
+    Button btnChooseDate, btnCreateNew, btnCancel, btnChooseTime;
     ImageView btnBackToolbar;
     Calendar calendar;
-    TextView dateView, toolbarTextView;
+    TextView dateView, toolbarTextView, timeView;
     DatePickerDialog dpg;
     EditText titleET, descET;
     String sTitle, sDesc, sDueDate, sID;
+    TimePickerDialog timePickerDialog;
     int year, month, day;
     DatabaseReference reference;
 
@@ -46,9 +54,11 @@ public class NewToDoActivity extends AppCompatActivity implements DatePickerDial
         btnChooseDate = findViewById(R.id.datePickerButton);
         btnCreateNew = findViewById(R.id.createNewButton);
         btnCancel = findViewById(R.id.cancelButton);
+        btnChooseTime = findViewById(R.id.timePickerButton);
         toolbarTextView = findViewById(R.id.toolbarTitleTextView);
         btnBackToolbar = findViewById(R.id.toolbarBackImageView);
         calendar = Calendar.getInstance();
+        timeView = findViewById(R.id.itemDueTimeTextView);
         dateView = findViewById(R.id.itemDueDateTextView);
         titleET = findViewById(R.id.newTitleDoesEditText);
         descET = findViewById(R.id.newDescDoesEditText);
@@ -61,6 +71,27 @@ public class NewToDoActivity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 newFrag.show(getSupportFragmentManager(), "btnChooseDate");
+            }
+        });
+
+        btnChooseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+
+                mTimePicker = new TimePickerDialog(NewToDoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        timeView.setText(hourOfDay + " : " + minute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+//                setAlarm(timeView.getText().);
             }
         });
 
@@ -109,6 +140,15 @@ public class NewToDoActivity extends AppCompatActivity implements DatePickerDial
             }
         });
     }
+
+    private void setAlarm (long time){
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(this, MyAlarm.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i ,0);
+        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pi);
+        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void getValue(){
         td.setTitleMR(titleET.getText().toString());
