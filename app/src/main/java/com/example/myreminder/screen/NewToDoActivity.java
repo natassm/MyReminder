@@ -13,15 +13,18 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import com.example.myreminder.DatePickerFragment;
 import com.example.myreminder.R;
 import com.example.myreminder.ToDo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
-public class NewToDoActivity extends AppCompatActivity {
+public class NewToDoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     Button btnChooseDate, btnCreateNew, btnCancel;
     ImageView btnBackToolbar;
@@ -32,7 +35,6 @@ public class NewToDoActivity extends AppCompatActivity {
     String sTitle, sDesc, sDueDate, sID;
     int year, month, day;
     DatabaseReference reference;
-//    Integer doesNum = new Random().nextInt();
 
     ToDo td  = new ToDo();
 
@@ -56,19 +58,8 @@ public class NewToDoActivity extends AppCompatActivity {
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH);
-                day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                dpg = new DatePickerDialog(NewToDoActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-                        dateView.setText(mDay + "/" + (mMonth+1) + "/" + mYear);
-                    }
-                }, day, month, year);
-                dpg.show();
-
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
 
@@ -100,7 +91,7 @@ public class NewToDoActivity extends AppCompatActivity {
 
                 getValue();
 
-                if (titleET.equals("") || descET.equals("")){
+                if (titleET.equals("") || descET.equals("") || dateView.equals("")){
                     Toast.makeText(NewToDoActivity.this, "Please fill all the data",
                             Toast.LENGTH_LONG).show();
                 }else{
@@ -122,5 +113,15 @@ public class NewToDoActivity extends AppCompatActivity {
         td.setTitleMR(titleET.getText().toString());
         td.setDescMR(descET.getText().toString());
         td.setDueDateMR(dateView.getText().toString());
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
+        dateView.setText(currentDate);
     }
 }

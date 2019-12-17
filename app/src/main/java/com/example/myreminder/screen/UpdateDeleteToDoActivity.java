@@ -1,9 +1,11 @@
 package com.example.myreminder.screen;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,20 +13,25 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import com.example.myreminder.DatePickerFragment;
 import com.example.myreminder.FirebaseDatabaseHelper;
 import com.example.myreminder.R;
 import com.example.myreminder.ToDo;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class UpdateDeleteToDoActivity extends AppCompatActivity {
+public class UpdateDeleteToDoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     ImageView btnBackToolbar;
     TextView toolbarTextView, dueDateTV;
     EditText titleET, descET;
-    Button btnUpdate, btnDelete;
-    String key, title, desc, dueDate;
+    Button btnUpdate, btnDelete, btnChooseDate;
+    int year, month, day;
+    String key;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +43,7 @@ public class UpdateDeleteToDoActivity extends AppCompatActivity {
         titleET = findViewById(R.id.updateDeleteTitleDoesEditText);
         descET = findViewById(R.id.updateDeleteDescDoesEditText);
         dueDateTV = findViewById(R.id.updateDeleteDueDateTextView);
+        btnChooseDate = findViewById(R.id.datePickerButton);
         btnUpdate = findViewById(R.id.updateButton);
         btnDelete = findViewById(R.id.deleteButton);
 
@@ -48,14 +56,18 @@ public class UpdateDeleteToDoActivity extends AppCompatActivity {
             }
         });
 
-        key = getIntent().getStringExtra("key");
-        title = getIntent().getStringExtra("titleDoes");
-        desc = getIntent().getStringExtra("descDoes");
-        dueDate = getIntent().getStringExtra("dateDoes");
+        btnChooseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
 
-        titleET.setText(title);
-        descET.setText(desc);
-        dueDateTV.setText(dueDate);
+        key = getIntent().getStringExtra("key");
+        titleET.setText(getIntent().getStringExtra("titleDoes"));
+        descET.setText(getIntent().getStringExtra("descDoes"));
+        dueDateTV.setText(getIntent().getStringExtra("dateDoes"));
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,5 +129,15 @@ public class UpdateDeleteToDoActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
+        dueDateTV.setText(currentDate);
     }
 }
