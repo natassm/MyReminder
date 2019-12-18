@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run(){
                 try{
                     sleep(3*1000);
-                    Intent i = new Intent(getBaseContext(), DashboardActivity.class);
+                    Intent i = new Intent(getBaseContext(), PasscodeActivity.class);
                     startActivity(i);
                     finish();
                 }catch (Exception e){

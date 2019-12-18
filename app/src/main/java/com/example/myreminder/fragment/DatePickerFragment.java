@@ -1,4 +1,4 @@
-package com.example.myreminder;
+package com.example.myreminder.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -24,6 +24,7 @@ public class DatePickerFragment extends DialogFragment {
         int day_of_month = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), STYLE_NORMAL,
                 (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day_of_month);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.getDatePicker().setTag(getTag());
         return dialog;
     }

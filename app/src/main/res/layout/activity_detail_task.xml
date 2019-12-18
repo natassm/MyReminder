@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             app:cardBackgroundColor="@color/white_smoke"
             app:cardCornerRadius="20dp"
@@ -31,20 +32,20 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/datePickerButton"
+                    android:id="@+id/timePickerButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/background_choose_date"
                     android:padding="10dp"
-                    android:text="@string/choose_date"
+                    android:text="@string/choose_time"
                     android:textAllCaps="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/updateDeleteDueDateTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemDueTimeTextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/updateDeleteDueDateTextView" />
+                    app:layout_constraintTop_toTopOf="@+id/itemDueTimeTextView" />
 
                 <Button
-                    android:id="@+id/deleteButton"
+                    android:id="@+id/detailCancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -52,28 +53,28 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="24dp"
                     android:background="@drawable/background_button"
-                    android:text="@string/delete"
+                    android:text="@string/cancel"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/updateButton" />
+                    app:layout_constraintTop_toBottomOf="@id/detailSetAlarmButton" />
 
 
                 <Button
-                    android:id="@+id/updateButton"
+                    android:id="@+id/detailSetAlarmButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/background_button"
-                    android:text="@string/update"
+                    android:text="@string/set_alarm"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/updateDeleteDueDateTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/itemDueTimeTextView" />
 
                 <TextView
-                    android:id="@+id/updateDeleteDueDateTextView"
+                    android:id="@+id/detailDateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -83,12 +84,23 @@
                     app:layout_constraintTop_toBottomOf="@id/textView3" />
 
                 <TextView
+                    android:id="@+id/itemDueTimeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/choose_due_time"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="@id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:textSize="14dp" />
+
+                <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:text="@string/title"
+                    android:text="@string/title2"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +115,7 @@
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/textView"
-                    app:layout_constraintTop_toBottomOf="@id/titleCardView" />
+                    app:layout_constraintTop_toBottomOf="@+id/detailTitleTextView" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -114,69 +126,40 @@
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/textView"
-                    app:layout_constraintTop_toBottomOf="@id/descCardView" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/descCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:padding="10dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView2"
-                    app:strokeColor="@color/brown_3"
-                    app:strokeWidth="1dp">
-
-                    <EditText
-                        android:id="@+id/updateDeleteDescDoesEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="@string/descTV"
-                        android:inputType="textPersonName"
-                        android:textSize="14dp" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/titleCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:padding="10dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView"
-                    app:strokeColor="@color/brown_3"
-                    app:strokeWidth="1dp">
-
-                    <EditText
-                        android:id="@+id/updateDeleteTitleDoesEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="@string/titleTV"
-                        android:inputType="textPersonName"
-                        android:textSize="14dp" />
-
-                </com.google.android.material.card.MaterialCardView>
+                    app:layout_constraintTop_toBottomOf="@+id/detailDescTextView" />
 
                 <TextView
-                    android:id="@+id/textPriorityUD"
+                    android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/updateDeleteDueDateTextView"
-                    app:layout_constraintStart_toStartOf="@+id/updateDeleteDueDateTextView" />
+                    android:layout_marginTop="24dp"
+                    android:text="@string/wanna_set_alarm"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailDateTextView" />
+
+                <TextView
+                    android:id="@+id/detailTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    tools:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/detailDescTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    tools:textSize="14dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -192,4 +175,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

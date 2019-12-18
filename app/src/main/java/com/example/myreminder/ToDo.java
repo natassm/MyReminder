@@ -2,17 +2,17 @@ package com.example.myreminder;
 
 public class ToDo {
 
-    String titleMR, descMR, dueDateMR, idMR;
+    String titleMR, descMR, dueDateMR, categoryPriority;
 
     public ToDo(){
 
     }
 
-    public ToDo(String titleMR, String descMR, String dueDateMR, String idMR) {
+    public ToDo(String titleMR, String descMR, String dueDateMR, String categoryPriority, int viewType) {
         this.titleMR = titleMR;
         this.descMR = descMR;
         this.dueDateMR = dueDateMR;
-        this.idMR = idMR;
+        this.categoryPriority = categoryPriority;
     }
 
     public String getTitleMR() {
@@ -39,11 +39,11 @@ public class ToDo {
         this.dueDateMR = dueDateMR;
     }
 
-    public String getIdMR() {
-        return idMR;
+    public String getCategoryPriority() {
+        return categoryPriority;
     }
 
-    public void setIdMR(String idMR) {
-        this.idMR = idMR;
+    public void setCategoryPriority(String categoryPriority) {
+        this.categoryPriority = categoryPriority;
     }
 }

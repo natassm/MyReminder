@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/toDoListCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,6 +19,8 @@
         app:cardBackgroundColor="@color/white_smoke"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
+        app:strokeColor="@color/brown_3"
+        app:strokeWidth="4dp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,11 +36,12 @@
                 android:id="@+id/itemListTitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/itemListPriorityTextView" />
 
             <TextView
                 android:id="@+id/itemListDescTextView"
@@ -51,6 +54,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/itemListTitleTextView" />
 
             <TextView
+                android:id="@+id/itemListPriorityTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/itemListDateTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -60,10 +74,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemListDescTextView" />
+                app:layout_constraintTop_toBottomOf="@id/itemListDescTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

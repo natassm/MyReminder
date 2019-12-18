@@ -1,6 +1,8 @@
 package com.example.myreminder;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myreminder.screen.DetailActivity;
 import com.example.myreminder.screen.UpdateDeleteToDoActivity;
 
 import java.util.ArrayList;
@@ -60,7 +63,7 @@ public class ToDoConfig {
 
     class ToDoViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titledoes, descdoes, dueDatedoes;
+        private TextView titledoes, descdoes, dueDatedoes, categoryPrio;
         private String key;
 
         public ToDoViewHolder(ViewGroup parent) {
@@ -70,17 +73,13 @@ public class ToDoConfig {
             titledoes = itemView.findViewById(R.id.itemListTitleTextView);
             descdoes = itemView.findViewById(R.id.itemListDescTextView);
             dueDatedoes = itemView.findViewById(R.id.itemListDateTextView);
+            categoryPrio = itemView.findViewById(R.id.itemListPriorityTextView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(mContext, UpdateDeleteToDoActivity.class);
-                    i.putExtra("key", key);
-                    i.putExtra("titleDoes", titledoes.getText().toString());
-                    i.putExtra("descDoes", descdoes.getText().toString());
-                    i.putExtra("dateDoes", dueDatedoes.getText().toString());
-
-                    mContext.startActivity(i);
+                public boolean onLongClick(View view) {
+                    setAlertDialog();
+                    return false;
                 }
             });
         }
@@ -90,8 +89,43 @@ public class ToDoConfig {
             titledoes.setText(toDo.getTitleMR());
             descdoes.setText(toDo.getDescMR());
             dueDatedoes.setText(toDo.getDueDateMR());
+            categoryPrio.setText(toDo.getCategoryPriority());
+
             this.key = key;
         }
 
+        public void setAlertDialog(){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+            alertDialogBuilder.setMessage("Hello, please choose your decision!");
+            alertDialogBuilder.setPositiveButton("Update or Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intentUD = new Intent(mContext, UpdateDeleteToDoActivity.class);
+                    intentUD.putExtra("key", key);
+                    intentUD.putExtra("titleDoes", titledoes.getText().toString());
+                    intentUD.putExtra("descDoes", descdoes.getText().toString());
+                    intentUD.putExtra("dateDoes", dueDatedoes.getText().toString());
+                    intentUD.putExtra("categoryDoes", categoryPrio.getText().toString());
+
+                    mContext.startActivity(intentUD);
+                }
+            });
+            alertDialogBuilder.setNegativeButton("Set Alarm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intentUD = new Intent(mContext, DetailActivity.class);
+                    intentUD.putExtra("key", key);
+                    intentUD.putExtra("titleDoes", titledoes.getText().toString());
+                    intentUD.putExtra("descDoes", descdoes.getText().toString());
+                    intentUD.putExtra("dateDoes", dueDatedoes.getText().toString());
+                    intentUD.putExtra("categoryDoes", categoryPrio.getText().toString());
+
+                    mContext.startActivity(intentUD);
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
     }
 }
