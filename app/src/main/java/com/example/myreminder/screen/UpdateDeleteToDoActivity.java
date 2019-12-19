@@ -4,13 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,11 +66,12 @@ public class UpdateDeleteToDoActivity extends AppCompatActivity implements
             }
         });
 
+        final DatePickerFragment newFrag = new DatePickerFragment();
+
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
+                newFrag.show(getSupportFragmentManager(), "btnChooseDate");
             }
         });
 
@@ -207,13 +205,10 @@ public class UpdateDeleteToDoActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, day);
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
-        dueDateTV.setText(currentDate);
+    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+        if (datePicker.getTag().equals("btnChooseDate")) {
+            dueDateTV.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
+        }
     }
 
     private void updatedData(){

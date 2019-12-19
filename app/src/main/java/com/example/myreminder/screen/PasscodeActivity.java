@@ -34,7 +34,5 @@ public class PasscodeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
     }
 }
